@@ -1,6 +1,12 @@
+import processing.serial.*;
 import processing.sound.*;
 
+
 final float GRAVITY = .3;
+
+//INPUT
+Serial myPort;
+int val;
 
 //SOUND
 SoundFile bgMusic;
@@ -12,8 +18,6 @@ float gravitySpeed = 0;
 int speed = 1;
 int displayWidth = 1100;
 int displayHeight = 700;
-
-//TEST 
 int level = 1;
 
 //CLASS OBJECTS
@@ -25,12 +29,41 @@ GameOver gameOver = new GameOver(false);
 
 void setup(){ 
   size(displayWidth, displayHeight);
+  String portName = Serial.list()[1];
+  myPort = new Serial(this, portName, 9600);
+  myPort.bufferUntil('\n');
   loadSounds();
   loadImages();
 }
 
+void jump(){
+  float spriteY = sprite.getCoord()[1];
+  
+  if (spriteY == 0 && !gameOver.isGameOver()) {
+    gravitySpeed = - 10;
+    sprite.setImgCount(0);
+    jumpFile.play();
+  }
+}
+
+
+
+void serialEvent(Serial port) {
+  
+  String sVal = port.readStringUntil('\n');
+  
+  if(sVal!=null) {
+    sVal = sVal.trim();
+    val = int(sVal);
+  }
+  
+  println(val);
+
+}
+
 void draw(){
-  if(gameOver.isGameOver()){
+
+   if(gameOver.isGameOver()){
     bg.reset();
     sprite.reset();
     foes[0].reset();
@@ -47,6 +80,8 @@ void draw(){
     score.paintCurrent(level);
     gameOver.setGameOver(foes[0].getCoord(), foes[0].getSize(), sprite.getCoord(), sprite.getSize(), zombieFile);
   }
+  
+  
 }
 
 void calcLevel(){
