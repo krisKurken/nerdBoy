@@ -16,5 +16,5 @@ Game made for playing with input from accelerator connected to Arduino.
 
 ### Developed by
 	Kristian Liljander Kurki.
-  Kajsa Taipale.
-  Beatrice Svensson.
+  	Kajsa Taipale.
+  	Beatrice Svensson.
