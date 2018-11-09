@@ -7,7 +7,9 @@ Game made for playing with input from accelerator connected to Arduino.
 
 ## Instructions on how to run project code
     - Clone/download repository from GitHub.
+    - Rename the proj folder to sketch_181014b.
     - Download Processing and Arduino IDE.
+    - Connect the hardware and so on ...
     - And enjoy!
 
 ### License
